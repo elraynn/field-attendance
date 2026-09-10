@@ -7,3 +7,5 @@ Route::get('/', function () {
 });
 
 Route::livewire('/departments', 'department-manager')->name('departments.index');
+Route::livewire('/employees', 'employee-manager')->name('employees.index');
+
