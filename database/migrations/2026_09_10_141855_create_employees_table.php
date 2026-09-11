@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('code','20')->unique();
+            $table->string('code', '20')->unique();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('phone_number')->nullable();
             $table->date('birth_date');
-            $table->enum('gender',['male','female'])->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->date('join_date');
-            $table->foreignId('department_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('department_id')->constrained()->nullOnDelete();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
