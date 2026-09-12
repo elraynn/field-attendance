@@ -83,7 +83,7 @@ new class extends Component
     protected function rules(): array
     {
         return [
-            'code' => [ 'string', 'max:20', Rule::unique('employees', 'code')->ignore($this->editingId)],
+            'code' => ['required', 'string', 'max:20', Rule::unique('employees', 'code')->ignore($this->editingId)],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:60', Rule::unique('employees', 'email')->ignore($this->editingId)],
