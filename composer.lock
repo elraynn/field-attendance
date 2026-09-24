@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7aa11dcba5b53fb34471d9e057f45dad",
+    "content-hash": "89632318e68665204ed96d4a5b7787e3",
     "packages": [
         {
             "name": "brick/math",
@@ -511,6 +511,49 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "elrayn/approval-flow",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elraynn/approval-flow.git",
+                "reference": "6e15b918ab9dc35f41109c25515bfa239106e1a2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elraynn/approval-flow/zipball/6e15b918ab9dc35f41109c25515bfa239106e1a2",
+                "reference": "6e15b918ab9dc35f41109c25515bfa239106e1a2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.6"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Elrayn\\ApprovalFlow\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhammad Rayhan"
+                }
+            ],
+            "description": "Declarative, role-gated state machine for multi-step approval workflows",
+            "support": {
+                "issues": "https://github.com/elraynn/approval-flow/issues",
+                "source": "https://github.com/elraynn/approval-flow/tree/main"
+            },
+            "time": "2026-09-10T15:29:10+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -8884,7 +8927,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "elrayn/approval-flow": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
