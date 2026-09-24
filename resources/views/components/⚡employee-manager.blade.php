@@ -120,9 +120,17 @@ new class extends Component
 <div class="max-w-4xl mx-auto py-10 px-4">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-semibold text-gray-900">Karyawan</h1>
-        <button wire:click="create" class="px-4 py-2 bg-gray-900 text-white rounded-md text-sm hover:bg-gray-700">
-            + Tambah Karyawan
-        </button>
+        <div class="flex gap-2">
+            <a href="{{ route('employees.export.excel') }}" class="px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                Export Excel
+            </a>
+            <a href="{{ route('employees.export.pdf') }}" class="px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                Export PDF
+            </a>
+            <button wire:click="create" class="px-4 py-2 bg-gray-900 text-white rounded-md text-sm hover:bg-gray-700">
+                + Tambah Karyawan
+            </button>
+        </div>
     </div>
 
     <input
@@ -232,7 +240,7 @@ new class extends Component
                     <td class="px-4 py-2">{{ $employee->email }}</td>
                     <td class="px-4 py-2">{{ $employee->phone_number }}</td>
                     <td class="px-4 py-2">{{ $employee->birth_date }}</td>
-                    <td class="px-4 py-2">{{ $employee->is_active == 'male' ? 'Laki-laki' : 'Perempuan' }}</td>
+                    <td class="px-4 py-2">{{ $employee->gender == 'male' ? 'Laki-laki' : 'Perempuan' }}</td>
                     <td class="px-4 py-2">{{ $employee->join_date }}</td>
                     <td class="px-4 py-2">{{ $employee->department?->name ?? '-' }}</td>
                     <td class="px-4 py-2">
