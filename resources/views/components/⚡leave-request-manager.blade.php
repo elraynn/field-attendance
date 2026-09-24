@@ -93,9 +93,18 @@ new class extends Component
 <div class="max-w-5xl mx-auto py-10 px-4">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-semibold text-gray-900">Izin & Cuti</h1>
-        <button wire:click="create" class="px-4 py-2 bg-gray-900 text-white rounded-md text-sm hover:bg-gray-700">
-            + Ajukan Izin/Cuti
-        </button>
+        <div class="flex gap-2">
+            <a href="{{ route('leave-requests.export.excel') }}" class="px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                Export Excel
+            </a>
+            <a href="{{ route('leave-requests.export.pdf') }}" class="px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                Export PDF
+            </a>
+            <button wire:click="create" class="px-4 py-2 bg-gray-900 text-white rounded-md text-sm hover:bg-gray-700">
+                + Ajukan Izin/Cuti
+            </button>
+
+        </div>
     </div>
 
     <div class="flex items-center gap-4 mb-4">
