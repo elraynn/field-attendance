@@ -12,8 +12,6 @@ new class extends Component
 
     public string $search = '';
 
-    public string $actingAsRole = 'hr';
-
     public bool $showForm = false;
 
     public string $employee_id = '';
@@ -59,7 +57,7 @@ new class extends Component
         $leaveRequest = LeaveRequest::findOrFail($leaveRequestId);
 
         try {
-            $leaveRequest->status = LeaveRequest::workflow()->apply($leaveRequest->status, $toStatus, $this->actingAsRole);
+            $leaveRequest->status = LeaveRequest::workflow()->apply($leaveRequest->status, $toStatus, auth()->user()->role);
             $leaveRequest->save();
         } catch (\InvalidArgumentException $e) {
             $this->addError('workflow', $e->getMessage());
@@ -107,21 +105,13 @@ new class extends Component
         </div>
     </div>
 
-    <div class="flex items-center gap-4 mb-4">
+    <div class="mb-4">
         <input
             type="text"
             wire:model.live.debounce.300ms="search"
             placeholder="Cari nama karyawan..."
-            class="flex-1 rounded-md border-gray-300 focus:border-blue-300 focus:ring"
+            class="w-full rounded-md border-gray-300 focus:border-blue-300 focus:ring"
         >
-
-        <label class="flex items-center gap-2 text-sm text-gray-600 whitespace-nowrap">
-            Bertindak sebagai:
-            <select wire:model.live="actingAsRole" class="rounded-md border-gray-300 text-sm">
-                <option value="hr">HR</option>
-                <option value="karyawan">Karyawan</option>
-            </select>
-        </label>
     </div>
 
     @error('workflow') <p class="mb-4 text-sm text-red-600">{{ $message }}</p> @enderror
@@ -211,7 +201,7 @@ new class extends Component
                         </span>
                     </td>
                     <td class="px-4 py-2 text-right space-x-2">
-                        @foreach (LeaveRequest::workflow()->availableFrom($leaveRequest->status, $actingAsRole) as $nextStatus)
+                        @foreach (LeaveRequest::workflow()->availableFrom($leaveRequest->status, auth()->user()->role) as $nextStatus)
                             <button
                                 wire:click="decide({{ $leaveRequest->id }}, '{{ $nextStatus }}')"
                                 wire:confirm="{{ $nextStatus === 'disetujui' ? 'Setujui' : 'Tolak' }} pengajuan ini?"

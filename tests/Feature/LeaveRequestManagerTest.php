@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Employee;
 use App\Models\LeaveRequest;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -11,6 +12,15 @@ use Tests\TestCase;
 class LeaveRequestManagerTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Default to a logged-in employee; tests that need HR-specific
+        // behaviour switch users with their own actingAs() call.
+        $this->actingAs(User::factory()->create(['role' => 'employee']));
+    }
 
     public function test_it_lists_leave_requests(): void
     {
@@ -59,8 +69,9 @@ class LeaveRequestManagerTest extends TestCase
     {
         $leaveRequest = LeaveRequest::factory()->create(['status' => 'diajukan']);
 
+        $this->actingAs(User::factory()->create(['role' => 'hr']));
+
         Livewire::test('leave-request-manager')
-            ->set('actingAsRole', 'hr')
             ->call('decide', $leaveRequest->id, 'disetujui')
             ->assertHasNoErrors();
 
@@ -71,20 +82,21 @@ class LeaveRequestManagerTest extends TestCase
     {
         $leaveRequest = LeaveRequest::factory()->create(['status' => 'diajukan']);
 
+        $this->actingAs(User::factory()->create(['role' => 'hr']));
+
         Livewire::test('leave-request-manager')
-            ->set('actingAsRole', 'hr')
             ->call('decide', $leaveRequest->id, 'ditolak')
             ->assertHasNoErrors();
 
         $this->assertDatabaseHas('leave_requests', ['id' => $leaveRequest->id, 'status' => 'ditolak']);
     }
 
-    public function test_a_karyawan_role_cannot_approve_a_request(): void
+    public function test_an_employee_role_cannot_approve_a_request(): void
     {
         $leaveRequest = LeaveRequest::factory()->create(['status' => 'diajukan']);
 
+        // Default logged-in user from setUp() already has the 'employee' role.
         Livewire::test('leave-request-manager')
-            ->set('actingAsRole', 'karyawan')
             ->call('decide', $leaveRequest->id, 'disetujui')
             ->assertHasErrors('workflow');
 
@@ -95,8 +107,9 @@ class LeaveRequestManagerTest extends TestCase
     {
         $leaveRequest = LeaveRequest::factory()->create(['status' => 'disetujui']);
 
+        $this->actingAs(User::factory()->create(['role' => 'hr']));
+
         Livewire::test('leave-request-manager')
-            ->set('actingAsRole', 'hr')
             ->call('decide', $leaveRequest->id, 'ditolak')
             ->assertHasErrors('workflow');
 
