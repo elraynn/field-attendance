@@ -111,6 +111,9 @@ new class extends Component
     </div>
 
     <div class="flex items-center gap-3 mb-6">
+        <a href="{{ route('schedules.calendar.export.excel', ['week' => $weekStart]) }}" class="px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">Export Excel</a>
+        <a href="{{ route('schedules.calendar.export.pdf', ['week' => $weekStart]) }}" class="px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">Export PDF</a>
+
         <button wire:click="previousWeek" class="px-3 py-1.5 border border-gray-300 rounded-md text-sm hover:bg-gray-50">&larr; Minggu Lalu</button>
         <span class="text-sm text-gray-600">{{ $dates->first()->format('d M') }} - {{ $dates->last()->format('d M Y') }}</span>
         <button wire:click="nextWeek" class="px-3 py-1.5 border border-gray-300 rounded-md text-sm hover:bg-gray-50">Minggu Depan &rarr;</button>
