@@ -15,12 +15,20 @@
             <div class="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2 py-2">
                 <a href="{{ route('dashboard') }}" class="font-semibold text-gray-900">Field Attendance</a>
 
-                <div class="flex flex-wrap gap-1 text-sm">
+                <div class="flex flex-wrap items-center gap-1 text-sm">
                     <a href="{{ route('departments.index') }}" class="px-3 py-1.5 rounded-md {{ request()->routeIs('departments.*') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">Departemen</a>
                     <a href="{{ route('employees.index') }}" class="px-3 py-1.5 rounded-md {{ request()->routeIs('employees.*') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">Karyawan</a>
                     <a href="{{ route('shifts.index') }}" class="px-3 py-1.5 rounded-md {{ request()->routeIs('shifts.*') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">Shift</a>
                     <a href="{{ route('schedules.index') }}" class="px-3 py-1.5 rounded-md {{ request()->routeIs('schedules.*') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">Jadwal</a>
                     <a href="{{ route('leave-requests.index') }}" class="px-3 py-1.5 rounded-md {{ request()->routeIs('leave-requests.*') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">Izin & Cuti</a>
+
+                    <span class="w-px h-5 bg-gray-200 mx-1"></span>
+
+                    <span class="text-gray-500 px-1">{{ auth()->user()->name }}</span>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="px-3 py-1.5 rounded-md text-gray-600 hover:bg-gray-100">Keluar</button>
+                    </form>
                 </div>
             </div>
         </nav>
